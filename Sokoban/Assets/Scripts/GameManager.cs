@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Bomb _Bomb;
     [SerializeField] Scarab _Scarab;
     [SerializeField] Mummy _Mummy;
-    [SerializeField] Player _Player;
+    [SerializeField] Player _Player;;
     [SerializeField] Flame _Flame;
 
     [SerializeField] AudioSource _BoomAudio;
