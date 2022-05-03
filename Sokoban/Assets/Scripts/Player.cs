@@ -10,6 +10,9 @@ public class Player : CharacterObject
 
     [SerializeField] BoomPlayerEffect _BoomPlayerEffect;
     [SerializeField] EnterPortalEffect _EnterPortalEffect;
+    [SerializeField] MovePlayerEffect _MovePlayerEffect;
+
+    Transform movePlayerEffect;
 
     int _MoveSpeed = 15;
 
@@ -42,6 +45,13 @@ public class Player : CharacterObject
         return 'S';
     }
 
+    void Start()
+    {
+        movePlayerEffect = Instantiate<GameObject>(_MovePlayerEffect.gameObject, transform).transform;
+
+        movePlayerEffect.gameObject.SetActive(true);
+    }
+
     void Update()
     {
         if (gameManager != null)
@@ -58,18 +68,31 @@ public class Player : CharacterObject
                 {
                     case 'L':
                         playerMovePos.x--;
+                        movePlayerEffect.GetComponent<MovePlayerEffect>().StopUpDownWalk();
+                        movePlayerEffect.GetComponent<MovePlayerEffect>().PlayLeftWalk();
                         break;
 
                     case 'R':
                         playerMovePos.x++;
+                        movePlayerEffect.GetComponent<MovePlayerEffect>().StopUpDownWalk();
+                        movePlayerEffect.GetComponent<MovePlayerEffect>().PlayRightWalk();
                         break;
 
                     case 'U':
                         playerMovePos.y++;
+                        movePlayerEffect.GetComponent<MovePlayerEffect>().StopLeftRightWalk();
+                        movePlayerEffect.GetComponent<MovePlayerEffect>().PlayUpDownWalk();
                         break;
 
                     case 'D':
                         playerMovePos.y--;
+                        movePlayerEffect.GetComponent<MovePlayerEffect>().StopLeftRightWalk();
+                        movePlayerEffect.GetComponent<MovePlayerEffect>().PlayUpDownWalk();
+                        break;
+
+                    case 'S':
+                        movePlayerEffect.GetComponent<MovePlayerEffect>().StopUpDownWalk();
+                        movePlayerEffect.GetComponent<MovePlayerEffect>().StopLeftRightWalk();
                         break;
                 }
 
